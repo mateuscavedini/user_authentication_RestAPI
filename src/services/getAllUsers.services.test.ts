@@ -1,7 +1,6 @@
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
 import { getAllUsers } from "./getAllUsers.services"
-import {User} from "../utils/Models/user.model"
 
 describe("Get all users service", () => {
     afterAll(async () => {
@@ -18,9 +17,11 @@ describe("Get all users service", () => {
 
         const expectedResult = [
             {
+                uuid: expect.any(String),
                 username: "mock_user"
             },
             {
+                uuid: expect.any(String),
                 username: "mock_user_alt"
             }
         ]

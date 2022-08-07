@@ -17,7 +17,7 @@ export class MockData {
 
         return user
     }
-    
+
     async singleUser(): Promise<User> {
         // const mockUser = {
         //     username: "mock_user",

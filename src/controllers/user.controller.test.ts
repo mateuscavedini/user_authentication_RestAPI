@@ -4,7 +4,7 @@ import { MockRequest } from "../utils/mocks/MockRequest"
 import { MockResponse } from "../utils/mocks/MockResponse"
 import { UserController } from "./user.controller"
 
-describe("User controller -> create", () => {
+describe("User controller -> create method", () => {
     afterAll(async () => {
         await database.query("DELETE FROM application_users")
         await database.end()
@@ -32,5 +32,25 @@ describe("User controller -> create", () => {
         await userController.create(request, response)
 
         expect(response.state.status).toBe(201)
+    })
+})
+
+describe("User controller -> get methods", () => {
+    afterAll(async () => {
+        await database.query("DELETE FROM application_users")
+        await database.end()
+    })
+
+    const userController = new UserController()
+    const mockRequest = new MockRequest()
+    const mockResponse = new MockResponse()
+
+    test("If userController.getAll() returns status 200 when getting users list", async () => {
+        const request = mockRequest.make({})
+        const response = mockResponse.make()
+
+        await userController.getAll(request, response)
+
+        expect(response.state.status).toBe(200)
     })
 })
