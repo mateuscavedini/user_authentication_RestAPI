@@ -1,7 +1,7 @@
 import { database } from "../database";
 import { User } from "../utils/Models/user.model";
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: User): Promise<User> => {
     const values = [user.username, user.password]
 
     const script = `
@@ -14,7 +14,7 @@ export const createUser = async (user: User) => {
         ) RETURNING uuid
     `
 
-    const {rows} = await database.query(script, values)
+    const {rows} = await database.query<User>(script, values)
     const [newUser] = rows
 
     // return newUser.uuid

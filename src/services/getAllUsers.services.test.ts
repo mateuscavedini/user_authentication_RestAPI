@@ -1,5 +1,7 @@
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
+import { getAllUsers } from "./getAllUsers.services"
+import {User} from "../utils/Models/user.model"
 
 describe("Get all users service", () => {
     afterAll(async () => {
@@ -9,7 +11,20 @@ describe("Get all users service", () => {
 
     const mockData = new MockData()
 
-    it("Should return all users from database", async () => {
-        
+    it("Should return an array with all users from database", async () => {
+        await mockData.multipleUsers()
+
+        const result = await getAllUsers()
+
+        const expectedResult = [
+            {
+                username: "mock_user"
+            },
+            {
+                username: "mock_user_alt"
+            }
+        ]
+
+        expect(result).toMatchObject(expectedResult)
     })
 })

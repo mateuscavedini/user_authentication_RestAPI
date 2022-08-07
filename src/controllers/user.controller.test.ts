@@ -23,7 +23,7 @@ describe("User controller -> create", () => {
         //     }
         // })
 
-        const mockUser = mockData.mockUser()
+        const mockUser = mockData.mockUser("default")
         const request = mockRequest.make({
             body: mockUser
         })
