@@ -19,11 +19,6 @@ export class MockData {
     }
 
     async singleUser(): Promise<User> {
-        // const mockUser = {
-        //     username: "mock_user",
-        //     password: "123456"
-        // } as User
-
         const mockUser = this.mockUser("default")
 
         const user = await createUser(mockUser)
@@ -37,5 +32,17 @@ export class MockData {
 
         await createUser(defaultMockUser)
         await createUser(alternativeMockUser)
+    }
+
+    // encodedToken(): string {
+    //     const mockUser = this.mockUser("default")
+    //     const token = `${mockUser.username}:${mockUser.password}`
+    //     const encodedToken = Buffer.from(token, "utf-8").toString("base64")
+    //     return encodedToken
+    // }
+    encodedToken(username: string, password: string): string {
+        const token = `${username}:${password}`
+        const encodedToken = Buffer.from(token, "utf-8").toString("base64")
+        return encodedToken
     }
 }
