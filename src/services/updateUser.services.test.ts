@@ -3,7 +3,7 @@ import { MockData } from "../utils/mocks/MockData"
 import { User } from "../utils/Models/user.model"
 import { updateUser } from "./updateUser.services"
 
-describe("Update user", () => {
+describe("Update user service", () => {
     afterAll(async () => {
         await database.query("DELETE FROM application_users")
         await database.end()

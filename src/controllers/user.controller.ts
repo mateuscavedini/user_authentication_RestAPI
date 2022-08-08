@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/createUser.services";
+import { deleteUser } from "../services/deleteUser.services";
 import { getAllUsers } from "../services/getAllUsers.services";
 import { getUserById } from "../services/getUserById.services";
 import { updateUser } from "../services/updateUser.services";
@@ -30,5 +31,11 @@ export class UserController {
         modifiedUser.uuid = uuid
         const user = await updateUser(modifiedUser)
         return res.status(200).json(user)
+    }
+
+    async delete(req: Request<{uuid: string}>, res: Response): Promise<Response> {
+        const uuid = req.params.uuid
+        await deleteUser(uuid)
+        return res.status(200).json({mensagem: `user (${uuid}) deleted`})
     }
 }

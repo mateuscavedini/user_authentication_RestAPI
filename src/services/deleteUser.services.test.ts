@@ -1,8 +1,9 @@
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
+import { deleteUser } from "./deleteUser.services"
 import { getUserById } from "./getUserById.services"
 
-describe("Get user by ID service", () => {
+describe("Delete user service", () => {
     afterAll(async () => {
         await database.query("DELETE FROM application_users")
         await database.end()
@@ -10,15 +11,13 @@ describe("Get user by ID service", () => {
 
     const mockData = new MockData()
 
-    it("Should return an user", async () => {
+    it("Should delete the specified user", async () => {
         const mockUser = await mockData.singleUser()
-        const result = await getUserById(mockUser.uuid!)
 
-        const expectedResult = {
-            uuid: expect.any(String),
-            username: "mock_user"
-        }
+        await deleteUser(mockUser.uuid!)
 
-        expect(result).toMatchObject(expectedResult)
+        const result = await getUserById(mockUser.uuid!) // tries to get the deleted user
+
+        expect(result).toBe(undefined)
     })
 })

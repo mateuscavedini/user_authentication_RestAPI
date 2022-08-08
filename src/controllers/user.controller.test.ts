@@ -102,3 +102,29 @@ describe("User controller -> updated method", () => {
         expect(response.state.status).toBe(200)
     })
 })
+
+describe("User controller -> delete method", () => {
+    afterAll(async () => {
+        await database.query("DELETE FROM application_users")
+        await database.end()
+    })
+
+    const userController = new UserController()
+    const mockData = new MockData()
+    const mockRequest = new MockRequest()
+    const mockResponse = new MockResponse()
+
+    test("If userController.delete() returns status 200 when the specified user is deleted", async () => {
+        const mockUser = await mockData.singleUser()
+        const request = mockRequest.make({
+            params: {
+                uuid: mockUser.uuid!
+            }
+        }) as Request<{uuid: string}>
+        const response = mockResponse.make()
+
+        await userController.delete(request, response)
+
+        expect(response.state.status).toBe(200)
+    })
+})
