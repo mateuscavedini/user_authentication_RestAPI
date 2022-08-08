@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest NODE_ENV='test'",
-     "dev": "ts-node-dev ./src/index.ts"
+    "dev": "ts-node-dev ./src/index.ts"
   },
   "keywords": [],
   "author": "",
