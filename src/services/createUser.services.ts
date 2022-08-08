@@ -11,7 +11,7 @@ export const createUser = async (user: User): Promise<User> => {
         ) VALUES (
             $1,
             crypt($2, 'my_salt')
-        ) RETURNING uuid
+        ) RETURNING uuid, username
     `
 
     const {rows} = await database.query<User>(script, values)

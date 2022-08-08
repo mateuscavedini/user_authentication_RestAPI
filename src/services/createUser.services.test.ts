@@ -16,7 +16,7 @@ describe("Create user service", () => {
         //     password: "123456"
         // }
 
-        const mockUser = await mockData.singleUser()
+        const mockUser = mockData.mockUser("default")
 
         const result = await createUser(mockUser)
 
