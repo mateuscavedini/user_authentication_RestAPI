@@ -70,3 +70,35 @@ describe("User controller -> get methods", () => {
         expect(response.state.status).toBe(200)
     })
 })
+
+describe("User controller -> updated method", () => {
+    afterAll(async () => {
+        await database.query("DELETE FROM application_users")
+        await database.end()
+    })
+
+    const userController = new UserController()
+    const mockData = new MockData()
+    const mockRequest = new MockRequest()
+    const mockResponse = new MockResponse()
+    
+    test("If userController.update() returns 200 when an user is edited", async () => {
+        const mockUser = await mockData.singleUser()
+        const modifiedUser = {
+            username: "new_mock_user",
+            password: "654321"
+        }
+        
+        const request = mockRequest.make({
+            params: {
+                uuid: mockUser.uuid!
+            },
+            body: modifiedUser
+        }) as Request<{uuid: string}>
+        const response = mockResponse.make()
+
+        await userController.update(request, response)
+
+        expect(response.state.status).toBe(200)
+    })
+})
