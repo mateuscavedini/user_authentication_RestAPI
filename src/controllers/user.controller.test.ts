@@ -1,3 +1,4 @@
+import { Request } from "express"
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
 import { MockRequest } from "../utils/mocks/MockRequest"
@@ -42,6 +43,7 @@ describe("User controller -> get methods", () => {
     })
 
     const userController = new UserController()
+    const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
 
@@ -50,6 +52,20 @@ describe("User controller -> get methods", () => {
         const response = mockResponse.make()
 
         await userController.getAll(request, response)
+
+        expect(response.state.status).toBe(200)
+    })
+
+    test("If userController.getById() returns status 200 when getting an user", async () => {
+        const mockUser = await mockData.singleUser()
+        const request = mockRequest.make({
+            params: {
+                uuid: mockUser.uuid!
+            }
+        }) as Request<{uuid: string}>
+        const response = mockResponse.make()
+
+        await userController.getById(request, response)
 
         expect(response.state.status).toBe(200)
     })

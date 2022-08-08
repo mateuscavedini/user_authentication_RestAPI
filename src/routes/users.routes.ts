@@ -6,4 +6,5 @@ export const usersRoutes = Router()
 const userController = new UserController()
 
 usersRoutes.get("/users", userController.getAll)
+usersRoutes.get("/users/:uuid", userController.getById)
 usersRoutes.post("/users", userController.create)
