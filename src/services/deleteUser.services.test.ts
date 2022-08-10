@@ -12,7 +12,7 @@ describe("Delete user service", () => {
     const mockData = new MockData()
 
     it("Should delete the specified user", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
 
         await deleteUser(mockUser.uuid!)
 

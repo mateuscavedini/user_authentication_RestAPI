@@ -11,7 +11,7 @@ describe("Get user by ID service", () => {
     const mockData = new MockData()
 
     it("Should return an user", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         const result = await getUserById(mockUser.uuid!)
 
         const expectedResult = {

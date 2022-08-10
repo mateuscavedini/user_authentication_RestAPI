@@ -57,7 +57,7 @@ describe("User controller -> get methods", () => {
     })
 
     test("If userController.getById() returns status 200 when getting an user", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         const request = mockRequest.make({
             params: {
                 uuid: mockUser.uuid!
@@ -83,7 +83,7 @@ describe("User controller -> updated method", () => {
     const mockResponse = new MockResponse()
     
     test("If userController.update() returns 200 when an user is edited", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         const modifiedUser = {
             username: "new_mock_user",
             password: "654321"
@@ -115,7 +115,7 @@ describe("User controller -> delete method", () => {
     const mockResponse = new MockResponse()
 
     test("If userController.delete() returns status 200 when the specified user is deleted", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         const request = mockRequest.make({
             params: {
                 uuid: mockUser.uuid!

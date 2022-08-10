@@ -12,7 +12,7 @@ describe("Update user service", () => {
     const mockData = new MockData()
 
     it("Should update an existing user", async () => {
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         const modifiedUser = {
             uuid: mockUser.uuid,
             username: "new_mock_user",
