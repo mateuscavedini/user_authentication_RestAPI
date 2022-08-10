@@ -18,8 +18,8 @@ export class MockData {
         return user
     }
 
-    async singleUser(): Promise<User> {
-        const mockUser = this.mockUser("default")
+    async singleUser(behavior: MockUserBehavior): Promise<User> {
+        const mockUser = this.mockUser(behavior)
 
         const user = await createUser(mockUser)
 
