@@ -14,7 +14,7 @@ describe("Basic authentication middleware", () => {
 
     it("Should receive a basic token through the request headers", async() => {
         const { password: mockPassword } = mockData.mockUser("default")
-        const mockUser = await mockData.singleUser()
+        const mockUser = await mockData.singleUser("default")
         mockUser.password = mockPassword
         const mockAuthHeader = mockData.basicAuthHeader()
 
@@ -31,8 +31,8 @@ describe("Basic authentication middleware", () => {
     })
     
     it("Should decode a base64 token and return an user", async () => {
-        const { password: mockPassword } = mockData.mockUser("default")
-        const mockUser = await mockData.singleUser()
+        const { password: mockPassword } = mockData.mockUser("alternative")
+        const mockUser = await mockData.singleUser("alternative")
         mockUser.password = mockPassword
 
         const token = mockData.encodedToken(mockUser.username, mockUser.password!)
