@@ -1,3 +1,0 @@
-prod: postgres://mzkvrajg:lawehHtlSLdMdPV_fbH2TtN0qtLlpO5S@kesavan.db.elephantsql.com/mzkvrajg
-
-test: postgres://lxawttxs:YSTojIjJleAk9f1ZyEFvGmUTwyCerlhA@kesavan.db.elephantsql.com/lxawttxs
