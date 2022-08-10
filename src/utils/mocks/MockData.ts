@@ -34,12 +34,14 @@ export class MockData {
         await createUser(alternativeMockUser)
     }
 
-    // encodedToken(): string {
-    //     const mockUser = this.mockUser("default")
-    //     const token = `${mockUser.username}:${mockUser.password}`
-    //     const encodedToken = Buffer.from(token, "utf-8").toString("base64")
-    //     return encodedToken
-    // }
+    basicAuthHeader(): Object {
+        const authorizationHeader = "Basic:any_token"
+        const header = {
+            authorization: authorizationHeader
+        }
+        return header
+    }
+    
     encodedToken(username: string, password: string): string {
         const token = `${username}:${password}`
         const encodedToken = Buffer.from(token, "utf-8").toString("base64")

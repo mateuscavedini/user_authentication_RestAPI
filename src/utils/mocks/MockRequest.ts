@@ -5,14 +5,16 @@ import { User } from "../Models/user.model"
 interface IMockRequest {
     params?: Params,
     body?: User,
-    // user?: User
+    // user?: User,
+    headers?: Object
 }
 
 export class MockRequest {
     make(obj: IMockRequest) {
         const request = {
             params: obj.params || {},
-            body: obj.body
+            body: obj.body,
+            headers: obj.headers         
         } as unknown
 
         return request as Request

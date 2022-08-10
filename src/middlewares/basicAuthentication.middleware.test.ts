@@ -1,4 +1,3 @@
-import { decode } from "punycode"
 import { database } from "../database"
 import { getUserByUsernameAndPassword } from "../services/getUserByUsernameAndPassword.services"
 import { MockData } from "../utils/mocks/MockData"
@@ -13,8 +12,26 @@ describe("Basic authentication middleware", () => {
     const mockData = new MockData()
     const mockRequest = new MockRequest()
 
+    it("Should receive a basic token through the request headers", async() => {
+        const { password: mockPassword } = mockData.mockUser("default")
+        const mockUser = await mockData.singleUser()
+        mockUser.password = mockPassword
+        const mockAuthHeader = mockData.basicAuthHeader()
+
+        const request = mockRequest.make({
+            body: mockUser,
+            headers: mockAuthHeader
+        })
+
+        const authorizationHeader = request.headers["authorization"]
+        const [authenticationType, token] = authorizationHeader!.split(":")
+
+        expect(authenticationType).toBe("Basic")
+        expect(typeof token).toBe("string")
+    })
+    
     it("Should decode a base64 token and return an user", async () => {
-        const {password: mockPassword} = mockData.mockUser("default")
+        const { password: mockPassword } = mockData.mockUser("default")
         const mockUser = await mockData.singleUser()
         mockUser.password = mockPassword
 
@@ -23,10 +40,6 @@ describe("Basic authentication middleware", () => {
         const [username, password] = decodedToken.split(":")
 
         const result = await getUserByUsernameAndPassword(username, password)
-
-        // const request = mockRequest.make({
-        //     user: mockUser
-        // })
 
         expect(decodedToken).toBe(`${mockUser.username}:${mockUser.password}`)
         // expect(request.user).toBe(mockUser)
