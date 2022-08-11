@@ -1,5 +1,5 @@
 import { Request } from "express"
-import {Params} from "express-serve-static-core"
+import { Params } from "express-serve-static-core"
 import { User } from "../Models/user.model"
 
 interface IMockRequest {
@@ -13,7 +13,7 @@ export class MockRequest {
         const request = {
             params: obj.params || {},
             body: obj.body,
-            headers: obj.headers         
+            headers: obj.headers
         } as unknown
 
         return request as Request

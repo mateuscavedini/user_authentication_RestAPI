@@ -12,12 +12,12 @@ describe("Get user by username and password service", () => {
 
     it("Should return the specified user", async () => {
         const mockUser = mockData.mockUser("default")
-        const {uuid} = await mockData.singleUser("default")
+        const { uuid } = await mockData.singleUser("default")
         mockUser.uuid = uuid
-        
+
         const result = await getUserByUsernameAndPassword(mockUser.username, mockUser.password!)
 
-        expect(result.uuid!).toBe(mockUser.uuid)
-        expect(result.username).toBe(mockUser.username)
+        expect(result!.uuid!).toBe(mockUser.uuid)
+        expect(result!.username).toBe(mockUser.username)
     })
 })

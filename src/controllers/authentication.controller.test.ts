@@ -12,13 +12,13 @@ describe("Authentication controller", () => {
         await database.end()
     })
 
-    const authenticationController = new AuthenticationController()    
+    const authenticationController = new AuthenticationController()
     const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
 
     test("If authenticationController.getJwtToken() returns status 200 when getting a JWT token", async () => {
-        const {password: mockPassword} = mockData.mockUser("default")
+        const { password: mockPassword } = mockData.mockUser("default")
         const mockUser = await mockData.singleUser("default")
         mockUser.password = mockPassword
         const mockAuthHeader = mockData.basicAuthHeader(mockUser.username, mockUser.password!)

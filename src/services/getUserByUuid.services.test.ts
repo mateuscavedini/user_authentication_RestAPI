@@ -1,6 +1,6 @@
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
-import { getUserById } from "./getUserById.services"
+import { getUserByUuid } from "./getUserByUuid.services"
 
 describe("Get user by ID service", () => {
     afterAll(async () => {
@@ -12,7 +12,7 @@ describe("Get user by ID service", () => {
 
     it("Should return an user", async () => {
         const mockUser = await mockData.singleUser("default")
-        const result = await getUserById(mockUser.uuid!)
+        const result = await getUserByUuid(mockUser.uuid!)
 
         const expectedResult = {
             uuid: expect.any(String),

@@ -1,14 +1,20 @@
 import { database } from "../database";
+import { DatabaseError } from "../utils/Models/errors/database.error.model";
 import { User } from "../utils/Models/user.model";
 
 export const deleteUser = async (uuid: string): Promise<void> => {
-    const values = [uuid]
+    try {
+        const values = [uuid]
 
-    const script = `
-        DELETE FROM application_users
-        WHERE uuid = $1
-        RETURNING uuid, username
-    `
+        const script = `
+            DELETE FROM application_users
+            WHERE uuid = $1
+            RETURNING uuid, username
+        `
 
-    await database.query<User>(script, values)
+        await database.query<User>(script, values)
+    } catch (error) {
+        throw new DatabaseError("Error deleting user", error)
+    }
+
 }

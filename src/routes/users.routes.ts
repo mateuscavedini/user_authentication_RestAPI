@@ -6,7 +6,7 @@ export const usersRoutes = Router()
 const userController = new UserController()
 
 usersRoutes.get("/users", userController.getAll)
-usersRoutes.get("/users/:uuid", userController.getById)
+usersRoutes.get("/users/:uuid", userController.getByUuid)
 usersRoutes.post("/users", userController.create)
 usersRoutes.put("/users/:uuid", userController.update)
 usersRoutes.delete("/users/:uuid", userController.delete)

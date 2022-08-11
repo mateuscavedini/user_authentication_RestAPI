@@ -1,4 +1,4 @@
-import { Request } from "express"
+import { NextFunction, Request } from "express"
 import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
 import { MockRequest } from "../utils/mocks/MockRequest"
@@ -15,22 +15,16 @@ describe("User controller -> create method", () => {
     const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
+    const next = jest.fn() as NextFunction
 
     test("If userController.create() returns 201 status when user is created", async () => {
-        // const request = mockRequest.make({
-        //     body: {
-        //         username: "mock_user",
-        //         password: "123456"
-        //     }
-        // })
-
         const mockUser = mockData.mockUser("default")
         const request = mockRequest.make({
             body: mockUser
         })
         const response = mockResponse.make()
 
-        await userController.create(request, response)
+        await userController.create(request, response, next)
 
         expect(response.state.status).toBe(201)
     })
@@ -46,12 +40,13 @@ describe("User controller -> get methods", () => {
     const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
+    const next = jest.fn() as NextFunction
 
     test("If userController.getAll() returns status 200 when getting users list", async () => {
         const request = mockRequest.make({})
         const response = mockResponse.make()
 
-        await userController.getAll(request, response)
+        await userController.getAll(request, response, next)
 
         expect(response.state.status).toBe(200)
     })
@@ -62,10 +57,10 @@ describe("User controller -> get methods", () => {
             params: {
                 uuid: mockUser.uuid!
             }
-        }) as Request<{uuid: string}>
+        }) as Request<{ uuid: string }>
         const response = mockResponse.make()
 
-        await userController.getById(request, response)
+        await userController.getByUuid(request, response, next)
 
         expect(response.state.status).toBe(200)
     })
@@ -81,23 +76,24 @@ describe("User controller -> updated method", () => {
     const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
-    
+    const next = jest.fn() as NextFunction
+
     test("If userController.update() returns 200 when an user is edited", async () => {
         const mockUser = await mockData.singleUser("default")
         const modifiedUser = {
             username: "new_mock_user",
             password: "654321"
         }
-        
+
         const request = mockRequest.make({
             params: {
                 uuid: mockUser.uuid!
             },
             body: modifiedUser
-        }) as Request<{uuid: string}>
+        }) as Request<{ uuid: string }>
         const response = mockResponse.make()
 
-        await userController.update(request, response)
+        await userController.update(request, response, next)
 
         expect(response.state.status).toBe(200)
     })
@@ -113,6 +109,7 @@ describe("User controller -> delete method", () => {
     const mockData = new MockData()
     const mockRequest = new MockRequest()
     const mockResponse = new MockResponse()
+    const next = jest.fn() as NextFunction
 
     test("If userController.delete() returns status 200 when the specified user is deleted", async () => {
         const mockUser = await mockData.singleUser("default")
@@ -120,10 +117,10 @@ describe("User controller -> delete method", () => {
             params: {
                 uuid: mockUser.uuid!
             }
-        }) as Request<{uuid: string}>
+        }) as Request<{ uuid: string }>
         const response = mockResponse.make()
 
-        await userController.delete(request, response)
+        await userController.delete(request, response, next)
 
         expect(response.state.status).toBe(200)
     })

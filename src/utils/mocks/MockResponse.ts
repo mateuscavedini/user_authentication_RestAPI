@@ -18,6 +18,11 @@ export class MockResponse {
             return response
         }
 
+        response.sendStatus = (status: number) => {
+            response.state.status = status
+            return response
+        }
+
         response.json = (json: Object) => {
             response.state.json = json
             return response
