@@ -1,4 +1,6 @@
 import express from "express"
+import { jwtAuthenticationMiddleware } from "./middlewares/jwtAuthentication.middleware"
+import { authenticationRoutes } from "./routes/authentication.routes"
 import { statusRoutes } from "./routes/status.routes"
 import { usersRoutes } from "./routes/users.routes"
 
@@ -12,6 +14,8 @@ server.use(express.urlencoded({extended: true}))
 
 // routes config
 server.use(statusRoutes)
+server.use(authenticationRoutes)
+server.use(jwtAuthenticationMiddleware)
 server.use(usersRoutes)
 
 // server initialization
