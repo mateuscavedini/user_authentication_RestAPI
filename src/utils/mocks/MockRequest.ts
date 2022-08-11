@@ -5,7 +5,6 @@ import { User } from "../Models/user.model"
 interface IMockRequest {
     params?: Params,
     body?: User,
-    // user?: User,
     headers?: Object
 }
 
