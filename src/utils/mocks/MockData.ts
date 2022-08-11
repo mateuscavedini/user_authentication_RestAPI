@@ -1,3 +1,4 @@
+import JWT, { SignOptions } from "jsonwebtoken"
 import { createUser } from "../../services/createUser.services"
 import { User } from "../Models/user.model"
 
@@ -34,17 +35,39 @@ export class MockData {
         await createUser(alternativeMockUser)
     }
 
-    basicAuthHeader(): Object {
-        const authorizationHeader = "Basic:any_token"
+    basicEncodedToken(username: string, password: string): string {
+        const token = `${username}:${password}`
+        const encodedToken = Buffer.from(token, "utf-8").toString("base64")
+
+        return encodedToken
+    }
+
+    jwtEncodedToken(uuid: string, username: string, key: string): string {
+        const jwtPayload = { username: username }
+        const jwtOptions: SignOptions = { subject: uuid, expiresIn: "5m" }
+        const secretKey = key
+        const encodedToken = JWT.sign(jwtPayload, secretKey, jwtOptions)
+
+        return encodedToken
+    }
+
+    basicAuthHeader(username: string, password: string): Object {
+        const token = this.basicEncodedToken(username, password)
+        const authorizationHeader = `Basic ${token}`
         const header = {
             authorization: authorizationHeader
         }
+
         return header
     }
-    
-    encodedToken(username: string, password: string): string {
-        const token = `${username}:${password}`
-        const encodedToken = Buffer.from(token, "utf-8").toString("base64")
-        return encodedToken
+
+    jwtAuthHeader(uuid: string, username: string, key: string): Object {
+        const token = this.jwtEncodedToken(uuid, username, key)
+        const authorizationHeader = `Bearer ${token}`
+        const header = {
+            authorization: authorizationHeader
+        }
+
+        return header
     }
 }
