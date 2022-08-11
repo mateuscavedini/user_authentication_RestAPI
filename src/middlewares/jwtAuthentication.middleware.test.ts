@@ -3,9 +3,9 @@ import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
 import { MockRequest } from "../utils/mocks/MockRequest"
 import { MockResponse } from "../utils/mocks/MockResponse"
-import { basicAuthenticationMiddleware } from "./basicAuthentication.middleware"
+import { jwtAuthenticationMiddleware } from "./jwtAuthentication.middleware"
 
-describe("Basic authentication middleware", () => {
+describe("JWT authentication middleware", () => {
     afterAll(async () => {
         await database.query("DELETE FROM application_users")
         await database.end()
@@ -16,10 +16,9 @@ describe("Basic authentication middleware", () => {
     const mockResponse = new MockResponse()
 
     it("Should return an user through the request and call 'next'", async () => {
-        const { password: mockPassword } = mockData.mockUser("default")
         const mockUser = await mockData.singleUser("default")
-        mockUser.password = mockPassword
-        const mockAuthHeader = mockData.basicAuthHeader(mockUser.username, mockUser.password!)
+        const secretKey = "my_secret_key"
+        const mockAuthHeader = mockData.jwtAuthHeader(mockUser.uuid!, mockUser.username, secretKey)
 
         const request = mockRequest.make({
             headers: mockAuthHeader
@@ -27,7 +26,7 @@ describe("Basic authentication middleware", () => {
         const response = mockResponse.make()
         const next = jest.fn() as NextFunction
 
-        await basicAuthenticationMiddleware(request, response, next)
+        await jwtAuthenticationMiddleware(request, response, next)
 
         expect(request.user!.uuid).toBeTruthy()
         expect(request.user!.username).toBeTruthy()

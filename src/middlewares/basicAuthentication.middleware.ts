@@ -7,7 +7,7 @@ export const basicAuthenticationMiddleware = async (req: Request, res: Response,
     // error handler
     if (!authorizationHeader) {
         return
-    } 
+    }
 
     const [authenticationType, token] = authorizationHeader.split(" ")
 
