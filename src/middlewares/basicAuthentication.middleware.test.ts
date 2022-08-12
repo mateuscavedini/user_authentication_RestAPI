@@ -3,7 +3,15 @@ import { database } from "../database"
 import { MockData } from "../utils/mocks/MockData"
 import { MockRequest } from "../utils/mocks/MockRequest"
 import { MockResponse } from "../utils/mocks/MockResponse"
+import { User } from "../utils/models/user.model"
 import { basicAuthenticationMiddleware } from "./basicAuthentication.middleware"
+
+// fixes typechecking in request.user!.*
+declare module "express-serve-static-core" {
+    interface Request {
+        user?: User | null
+    }
+}
 
 describe("Basic authentication middleware", () => {
     afterAll(async () => {
