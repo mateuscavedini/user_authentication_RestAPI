@@ -1,6 +1,6 @@
 import { database } from "../database";
-import { DatabaseError } from "../utils/Models/errors/database.error.model";
-import { User } from "../utils/Models/user.model";
+import { DatabaseError } from "../utils/models/errors/database.error.model";
+import { User } from "../utils/models/user.model";
 
 export const createUser = async (user: User): Promise<User> => {
     try {

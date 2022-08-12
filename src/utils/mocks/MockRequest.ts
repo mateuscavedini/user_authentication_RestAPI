@@ -1,6 +1,6 @@
 import { Request } from "express"
 import { Params } from "express-serve-static-core"
-import { User } from "../Models/user.model"
+import { User } from "../models/user.model"
 
 interface IMockRequest {
     params?: Params,

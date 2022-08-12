@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { getUserByUsernameAndPassword } from "../services/getUserByUsernameAndPassword.services";
-import { ForbiddenError } from "../utils/Models/errors/forbidden.error.model";
+import { ForbiddenError } from "../utils/models/errors/forbidden.error.model";
 
 export const basicAuthenticationMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

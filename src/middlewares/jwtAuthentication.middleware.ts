@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import JWT, { JwtPayload } from "jsonwebtoken";
-import { ForbiddenError } from "../utils/Models/errors/forbidden.error.model";
-import { User } from "../utils/Models/user.model";
+import { ForbiddenError } from "../utils/models/errors/forbidden.error.model";
+import { User } from "../utils/models/user.model";
 
 export const jwtAuthenticationMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

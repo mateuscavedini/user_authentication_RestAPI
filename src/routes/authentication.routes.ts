@@ -11,4 +11,4 @@ const authenticationController = new AuthenticationController()
 authenticationRoutes.post("/token", basicAuthenticationMiddleware, authenticationController.getJwtToken)
 
 // validate JWT token
-authenticationRoutes.post("/token/validade", jwtAuthenticationMiddleware, authenticationController.validateJwtToken)
+authenticationRoutes.post("/token/validate", jwtAuthenticationMiddleware, authenticationController.validateJwtToken)

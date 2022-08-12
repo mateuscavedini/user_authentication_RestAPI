@@ -2,8 +2,8 @@ import { NextFunction } from "express"
 import { database } from "../database"
 import { MockRequest } from "../utils/mocks/MockRequest"
 import { MockResponse } from "../utils/mocks/MockResponse"
-import { DatabaseError } from "../utils/Models/errors/database.error.model"
-import { ForbiddenError } from "../utils/Models/errors/forbidden.error.model"
+import { DatabaseError } from "../utils/models/errors/database.error.model"
+import { ForbiddenError } from "../utils/models/errors/forbidden.error.model"
 import { errorHandler } from "./errorHandler.middleware"
 
 describe("Error handler middleware", () => {

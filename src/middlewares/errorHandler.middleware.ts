@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { DatabaseError } from "../utils/Models/errors/database.error.model";
-import { ForbiddenError } from "../utils/Models/errors/forbidden.error.model";
+import { DatabaseError } from "../utils/models/errors/database.error.model";
+import { ForbiddenError } from "../utils/models/errors/forbidden.error.model";
 
 export const errorHandler = (error: any, req: Request, res: Response, next: NextFunction): Response => {
     if (error instanceof DatabaseError) {

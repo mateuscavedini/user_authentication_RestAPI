@@ -1,6 +1,6 @@
 import JWT, { SignOptions } from "jsonwebtoken"
 import { createUser } from "../../services/createUser.services"
-import { User } from "../Models/user.model"
+import { User } from "../models/user.model"
 
 type MockUserBehavior = "default" | "alternative"
 
