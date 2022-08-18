@@ -1,1 +1,1 @@
-## User authentication Rest API
+## User authentication Rest API :lock:
